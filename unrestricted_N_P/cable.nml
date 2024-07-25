@@ -1,0 +1,18 @@
+&cablenml
+    cable_user%Climate_fromZero = F
+    cable_user%YearStart        = 1841
+    cable_user%YearEnd          = 1860
+    icycle                      = 2
+    spincasa                    = F
+    cable_user%CASA_fromZero    = F
+    cable_user%CASA_dump_write  = T
+    cable_user%CASA_dump_read   = F
+    casafile%c2cdumppath      = "./restart/"
+    cable_user%CASA_spin_StartYear      = 1850
+    cable_user%CASA_spin_EndYear        = 1859
+    cable_user%limit_labile     = T
+    cable_user%POP_fromZero     = F
+    cable_user%POP_out          = "ini"
+    cable_user%POPLUC           = T
+    cable_user%POPLUC_RunType   = "static"
+/

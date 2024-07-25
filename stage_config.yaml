@@ -1,0 +1,18 @@
+climate_spinup:
+    count: 1
+zero_biomass:
+    count: 1
+multistep_unrestricted_N_P:
+    unrestricted_N_P:
+        count: 3
+    unrestricted_N_P_analytic:
+        count: 3
+multistep_restricted_N_P:
+    restricted_N_P:
+        count: 15
+    restricted_N_P_analytic:
+        count: 5
+dynamic_land_use:
+    count: 1
+full_dynamic_spinup:
+    count: 1
