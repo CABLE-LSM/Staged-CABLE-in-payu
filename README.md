@@ -42,14 +42,15 @@ land_use_spinup:
 The order in which the stages appear in ```stage_config.yaml``` is the order in which the stages are executed. The climate spin-up stage requires namelist modifications to ```cable.nml```, the biomass spin-up requires namelist modifications to ```cable.nml``` and ```cru.nml``` and the land use change spin-up requires changes to all three namelists. The directory structure of the laboratory would then be:
 
 ```
-[simple_3stage_example]$ tree --dirsfirst
+[Staged-CABLE-in-Payu]$ git checkout simple-3stage-example
+[Staged-CABLE-in-Payu]$ tree --dirsfirst
 .
-├── <font color="blue">biomass_spinup</font>
+├── biomass_spinup
 │   ├── cable.nml
 │   └── cru.nml
-├── <font color="blue">climate_spinup</font>
+├── climate_spinup
 │   └── cable.nml
-├── <font color="blue">land_use_spinup</font>
+├── land_use_spinup
 │   ├── cable.nml
 │   ├── cru.nml
 │   └── luc.nml
