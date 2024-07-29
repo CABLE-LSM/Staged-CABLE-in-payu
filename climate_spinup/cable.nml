@@ -1,4 +1,8 @@
 &cablenml
+    filename%restart_out        = "restart/cable_rst.nc"
+    cable_user%climate_restart_out  = "restart/climate_rst_for_LUC.nc"
+    cable_user%POP_restart_out  = "POP_rst.nc"
+    casafile%cnpepool           = "restart/CASA"
     cable_user%climate_fromZero = T
     cable_user%YearStart        = 1841
     cable_user%YearEnd          = 1860

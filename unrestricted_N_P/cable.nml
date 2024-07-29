@@ -1,4 +1,13 @@
 &cablenml
+    filename%restart_in         = "cable_rst.nc"
+    cable_user%climate_restart_in   = "climate_rst.nc"
+    cable_user%POP_restart_in   = "POP_rst.nc"
+    casafile%cnpipool           = "CASA"
+    filename%restart_out        = "restart/cable_rst.nc"
+    filename%POP_restart_out    = "POP_rst.nc"
+    filename%climate_restart_out    = "climate_rst.nc"
+    casafile%cnpepool           = "restart/CASA"
+    casafile%c2cdumppath        = "restart/"
     cable_user%Climate_fromZero = F
     cable_user%YearStart        = 1841
     cable_user%YearEnd          = 1860
@@ -7,7 +16,6 @@
     cable_user%CASA_fromZero    = F
     cable_user%CASA_dump_write  = T
     cable_user%CASA_dump_read   = F
-    casafile%c2cdumppath      = "./restart/"
     cable_user%CASA_spin_StartYear      = 1850
     cable_user%CASA_spin_EndYear        = 1859
     cable_user%limit_labile     = T

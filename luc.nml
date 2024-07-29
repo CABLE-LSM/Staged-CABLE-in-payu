@@ -1,6 +1,6 @@
 &lucnml
     TransitionFilePath = "./"
-    ClimateFile        = "./cru_climate_rst.nc"
+    ClimateFile        = "./climate_rst_for_LUC.nc"
     DirectRead         = .FALSE.
     YearStart          = 1700
     YearEnd            = 2020
