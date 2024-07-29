@@ -1,0 +1,23 @@
+&cablenml
+    filename%restart_in  = "cable_rst.nc"
+    filename%restart_out = "restart/cable_rst.nc"
+    cable_user%climate_restart_in  = "./climate_rst.nc"
+    cable_user%climate_restart_out = "restart/climate_rst.nc"
+    casafile%cnpepool = "restart/CASA"
+    cable_user%climate_fromZero = T
+    cable_user%YearStart        = 1841
+    cable_user%YearEnd          = 1870
+    icycle                      = 2
+    spincasa                    = F
+    cable_user%CASA_out_freq    = "monthly"
+    cable_user%CASA_fromZero    = T
+    cable_user%CASA_dump_read   = F
+    cable_user%CASA_dump_write  = F
+    cable_user%CASA_spin_startyear      = 1850
+    cable_user%CASA_spin_endyear        = 1850
+    cable_user%limit_labile             = T
+    cable_user%POP_fromZero             = T
+    cable_user%POP_out                  = "ini"
+    cable_user%POPLUC                   = T
+    cable_user%POPLUC_runType           = "static"
+/

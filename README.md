@@ -62,7 +62,7 @@ The order in which the stages appear in ```stage_config.yaml``` is the order in 
 └── stage_config.yaml
 ```
 
-In this example, the climate spin-up stage provides CABLE and climate restarts (```filename%restart_in``` and ```cable_user%restart_in``` in ```cable.nml```) to the biomass spin-up, and the biomass spin-up provides CABLE, climate and CASA restarts (```casafile%ncpipool``` in ```cable.nml```). The stage namelists required to achieve this would be:
+In this example, the climate spin-up stage provides CABLE and climate restarts (```filename%restart_in``` and ```cable_user%restart_in``` in ```cable.nml```) to the biomass spin-up, and the biomass spin-up provides CABLE, climate and CASA restarts (```casafile%ncpipool``` in ```cable.nml```). The stage namelists required to achieve this would be (minus any other desired physics changes):
 
 *climate_spinup/cable.nml*
 ```
@@ -80,7 +80,7 @@ In this example, the climate spin-up stage provides CABLE and climate restarts (
     filename%restart_out = "restart/cable_rst.nc"
     cable_user%climate_restart_in = "climate_rst.nc"
     cable_user%climate_restart_out = "restart/climate_rst.nc"
-    casafile%cnpepool = "restart/CASA_rst.nc"
+    casafile%cnpepool = "restart/CASA" ! Note this writes restart/CASA_phen_rst.nc, restart/CASA_pool_rst.nc etc
     ...
 /
 
@@ -88,7 +88,7 @@ In this example, the climate spin-up stage provides CABLE and climate restarts (
 ```
     filename%restart_in = "cable_rst.nc"
     cable_user%climate_restart_in = "climate_rst.nc"
-    casafile%cnpipool = "CASA_rst.nc"
+    casafile%cnpipool = "CASA"
     ...
 /
 ```
