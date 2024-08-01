@@ -25,7 +25,7 @@ The point of these multi-stage configurations is to spin-up various physical pro
 
 The progress of the configuration is monitored by the ```configuration_log.yaml``` file, which lists the queued and completed stages, and the stage that is currently running. Once a stage is finished running, it is stored in ```archive/output{id:%03d}/```, where ```id``` is the number of the current stage (starting at 0). A copy of the configuration log, snapshotted at the point the stage began, is stored in the output directory to assist interpretation of results.
 
-### A Simple Example
+## A Simple Example
 
 Here is an example of a simple configuration which contains 3 spin-up stages, one each for the climate, biomass and land use change. The ```stage_config.yaml``` for such a configuration would look like:
 
@@ -92,3 +92,32 @@ In this example, the climate spin-up stage provides CABLE and climate restarts (
     ...
 /
 ```
+
+## An Advanced Example- the TRENDY Configuration
+
+The TRENDY experiments are currently the most advanced configuation run in CABLE. It contains multi-step spin-up stages and retrieving restart files from earlier versions of that given restart. The ```stage_config.yaml``` file for this configuration is:
+
+*stage_config.yaml*
+```
+climate_spinup:
+    count: 1
+biomass_spinup:
+    count: 1
+multistep_unrestricted_N_P:
+    unrestricted_N_P:
+        count: 2
+    unrestricted_N_P_analytic:
+        count: 2
+multistep_restricted_N_P:
+    restricted_N_P:
+        count: 5
+    restricted_N_P_analytic:
+        count: 3
+land_use_spinup:
+    count: 1
+full_dynamic_spinup:
+    count: 1
+```
+
+Multi-step stages, denoted by the prefix ```multistep``` are stages which contain sub-steps which are cycled through ```count``` times. In this instance, the ```multistep_unrestricted_N_P``` stage is expanded as ```[unrestricted_N_P, unrestricted_N_P_analytic, unrestricted_N_P, unrestricted_N_P_analytic]```, as each internal step has a count of 2. The ```multistep_restricted_N_P``` stage runs the first internal step a total of 5 times and the second 3 times, so the expanded stage is ```[restricted_N_P, restricted_N_P_analytic, restricted_N_P, restricted_N_P_analytic, restricted_N_P, restricted_N_P_analytic, restricted_N_P, restricted_N_P]```.
+
