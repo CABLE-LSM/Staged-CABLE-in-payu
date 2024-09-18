@@ -7,9 +7,7 @@ This repository serves as a template for multi-stage CABLE configurations both t
 
 ## Usage
 
-The payu configuration in *config.yaml* remains identical (see the full documentation on payu configurations (here)[https://payu.readthedocs.io/en/latest/config.html]). The additions for CABLE configurations are the *stage_config.yaml* file and the stage namelist directories. The ```stage_config.yaml``` prescribes the stages (and how many times they run), that form the CABLE configuration in order and the locations of the namelists which define the actions of each stage.
-
-As with all payu laboratories, the namelists required for the relevant version of CABLE must be included in the experiment directory. This repository was built targeting the (CABLE-POP\_TRENDY)[https://github.com/CABLE-LSM/CABLE/tree/CABLE-POP\_TRENDY] branch of the code, which requires the namelists ```cable.nml```, ```luc.nml```, ```met_names.nml``` and a namelist for the meteorological forcing, in this case ```cru.nml```.
+The payu configuration in *config.yaml* remains identical (see the full documentation on payu configurations (here)[https://payu.readthedocs.io/en/latest/config.html]). The additions for CABLE configurations are the *stage_config.yaml* file and the stage namelist directories. The ```stage_config.yaml``` prescribes the stages (and how many times they run), that form the CABLE configuration in order and the locations of the namelists which define the actions of each stage. The branches of this repository contain example configurations.
 
 Once the laboratory is configured, invoke ```payu run``` to execute the CABLE configuration. Note that if CABLE exits with a non-success exit code, invoking ```payu run``` again will by default restart from the stage that failed (after a ```payu sweep```). To begin from the start, remove the ```configuration_log.yaml``` file with ```rm configuration_log.yaml```.
 
@@ -24,72 +22,3 @@ The point of these multi-stage configurations is to spin-up various physical pro
 ### Configuration Progress
 
 The progress of the configuration is monitored by the ```configuration_log.yaml``` file, which lists the queued and completed stages, and the stage that is currently running. Once a stage is finished running, it is stored in ```archive/output{id:%03d}/```, where ```id``` is the number of the current stage (starting at 0). A copy of the configuration log, snapshotted at the point the stage began, is stored in the output directory to assist interpretation of results.
-
-### A Simple Example
-
-Here is an example of a simple configuration which contains 3 spin-up stages, one each for the climate, biomass and land use change. The ```stage_config.yaml``` for such a configuration would look like:
-
-*stage_config.yaml*
-```
-climate_spinup:
-    count: 1
-biomass_spinup:
-    count: 1
-land_use_spinup:
-    count: 1
-```
-
-The order in which the stages appear in ```stage_config.yaml``` is the order in which the stages are executed. The climate spin-up stage requires namelist modifications to ```cable.nml```, the biomass spin-up requires namelist modifications to ```cable.nml``` and ```cru.nml``` and the land use change spin-up requires changes to all three namelists. The directory structure of the laboratory would then be:
-
-```
-[Staged-CABLE-in-payu]$ git checkout simple-3stage-example
-[Staged-CABLE-in-payu]$ tree --dirsfirst
-.
-├── biomass_spinup
-│   ├── cable.nml
-│   └── cru.nml
-├── climate_spinup
-│   └── cable.nml
-├── land_use_spinup
-│   ├── cable.nml
-│   ├── cru.nml
-│   └── luc.nml
-├── cable.nml
-├── config.yaml
-├── cru.nml
-├── luc.nml
-├── met_names.nml
-└── stage_config.yaml
-```
-
-In this example, the climate spin-up stage provides CABLE and climate restarts (```filename%restart_in``` and ```cable_user%restart_in``` in ```cable.nml```) to the biomass spin-up, and the biomass spin-up provides CABLE, climate and CASA restarts (```casafile%ncpipool``` in ```cable.nml```). The stage namelists required to achieve this would be:
-
-*climate_spinup/cable.nml*
-```
-&cablenml
-    filename%restart_out = "restart/cable_rst.nc"
-    cable_user%climate_restart_out = "restart/climate_rst.nc"
-    ...
-/
-```
-
-*biomass_spinup/cable.nml*
-```
-&cablenml
-    filename%restart_in = "cable_rst.nc"
-    filename%restart_out = "restart/cable_rst.nc"
-    cable_user%climate_restart_in = "climate_rst.nc"
-    cable_user%climate_restart_out = "restart/climate_rst.nc"
-    casafile%cnpepool = "restart/CASA_rst.nc"
-    ...
-/
-```
-
-*land_use_spinup/cable.nml*
-```
-    filename%restart_in = "cable_rst.nc"
-    cable_user%climate_restart_in = "climate_rst.nc"
-    casafile%cnpipool = "CASA_rst.nc"
-    ...
-/
-```
