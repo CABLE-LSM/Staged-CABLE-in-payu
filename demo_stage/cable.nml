@@ -1,4 +1,0 @@
-cablenml&
-    filename%restart_out        = "cable_rst.nc"
-    cable_user%Climate_FromZero = T
-/
