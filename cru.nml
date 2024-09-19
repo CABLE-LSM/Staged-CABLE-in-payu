@@ -11,7 +11,7 @@
     fDiffFile = "fd/fd_<startdate>_<enddate>.nc"
     CO2File = "co2/co2_17000101_20221231.txt"
     NDepFile = "ndep/NDep_<startdate>_<enddate>.nc"
-    LandMaskFile = "landmask.nc"
+    LandMaskFile = "SE-NSW-Mask.nc"
     rainRecycle = T
     lwdnRecycle = T
     swdnRecycle = T
